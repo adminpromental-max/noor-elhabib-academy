@@ -1,0 +1,11 @@
+{
+  "name": "noor-elhabib-academy",
+  "version": "1.0.0",
+  "description": "صفحة هبوط أكاديمية نور الحبيب - تحفيظ القرآن والتجويد",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . -p 3000"
+  },
+  "keywords": ["quran", "academy", "landing-page", "arabic"],
+  "license": "MIT"
+}
