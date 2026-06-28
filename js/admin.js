@@ -10,10 +10,11 @@ const Admin = {
       return;
     }
 
-    this.client = window.supabase.createClient(
-      SITE_CONFIG.supabaseUrl,
-      SITE_CONFIG.supabaseAnonKey
-    );
+    this.client = Auth.getClient();
+    if (!this.client) {
+      this.showAlert('تعذر الاتصال بـ Supabase', 'error');
+      return;
+    }
 
     this.client.auth.getSession().then(({ data }) => {
       if (!data.session) window.location.href = '/admin/';
@@ -32,7 +33,7 @@ const Admin = {
 
   bindEvents() {
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      await this.client.auth.signOut();
+      await Auth.signOut();
       window.location.href = '/admin/';
     });
 

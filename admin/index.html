@@ -16,49 +16,119 @@
       <h1>لوحة تحكم المقالات</h1>
       <p>أكاديمية نور الحبيب — إدارة المحتوى</p>
       <div id="loginAlert"></div>
-      <form id="loginForm">
-        <div class="admin-form-group">
-          <label for="email">البريد الإلكتروني</label>
-          <input type="email" id="email" required autocomplete="email">
-        </div>
-        <div class="admin-form-group">
-          <label for="password">كلمة المرور</label>
-          <input type="password" id="password" required autocomplete="current-password">
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%">دخول</button>
-      </form>
+
+      <!-- تسجيل الدخول -->
+      <div id="loginView">
+        <form id="loginForm">
+          <div class="admin-form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" required autocomplete="email" placeholder="example@email.com">
+          </div>
+          <div class="admin-form-group">
+            <label for="password">كلمة المرور</label>
+            <input type="password" id="password" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary" id="loginBtn" style="width:100%">دخول</button>
+        </form>
+        <p style="text-align:center;margin-top:16px">
+          <button type="button" id="showForgotBtn" class="admin-link-btn">نسيت كلمة المرور؟</button>
+        </p>
+      </div>
+
+      <!-- استعادة كلمة المرور -->
+      <div id="forgotView" hidden>
+        <p class="admin-hint" style="margin-bottom:16px;text-align:center">
+          أدخلي بريدك الإلكتروني وسنرسل لك رابطاً لتعيين كلمة مرور جديدة
+        </p>
+        <form id="forgotForm">
+          <div class="admin-form-group">
+            <label for="forgotEmail">البريد الإلكتروني</label>
+            <input type="email" id="forgotEmail" required autocomplete="email" placeholder="example@email.com">
+          </div>
+          <button type="submit" class="btn btn-primary" id="forgotBtn" style="width:100%">إرسال رابط التغيير</button>
+        </form>
+        <p style="text-align:center;margin-top:16px">
+          <button type="button" id="showLoginBtn" class="admin-link-btn">العودة لتسجيل الدخول</button>
+        </p>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/js/config.js"></script>
-  <script src="/js/site.js"></script>
+  <script src="/js/auth.js"></script>
   <script>
-    const client = window.supabase?.createClient(
-      SITE_CONFIG.supabaseUrl,
-      SITE_CONFIG.supabaseAnonKey
-    );
+    const alertBox = document.getElementById('loginAlert');
+    const loginView = document.getElementById('loginView');
+    const forgotView = document.getElementById('forgotView');
 
-    if (!SITE_CONFIG.supabaseUrl) {
-      document.getElementById('loginAlert').innerHTML =
-        '<div class="admin-alert error">يرجى إعداد Supabase في ملف config.js أولاً</div>';
+    function showAlert(msg, type = 'error') {
+      alertBox.innerHTML = `<div class="admin-alert ${type}">${msg}</div>`;
     }
 
-    client?.auth.getSession().then(({ data }) => {
+    if (!SITE_CONFIG.supabaseUrl || !SITE_CONFIG.supabaseAnonKey) {
+      showAlert('إعدادات Supabase غير مكتملة — راجعي ملف config.js');
+    }
+
+    Auth.getSession().then(({ data }) => {
       if (data.session) window.location.href = '/admin/dashboard.html';
+    });
+
+    document.getElementById('showForgotBtn').addEventListener('click', () => {
+      loginView.hidden = true;
+      forgotView.hidden = false;
+      alertBox.innerHTML = '';
+      document.getElementById('forgotEmail').value = document.getElementById('email').value;
+    });
+
+    document.getElementById('showLoginBtn').addEventListener('click', () => {
+      forgotView.hidden = true;
+      loginView.hidden = false;
+      alertBox.innerHTML = '';
     });
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const { error } = await client.auth.signInWithPassword({ email, password });
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.textContent = 'جاري الدخول...';
+      alertBox.innerHTML = '';
+
+      const { error } = await Auth.signIn(
+        document.getElementById('email').value,
+        document.getElementById('password').value
+      );
+
+      btn.disabled = false;
+      btn.textContent = 'دخول';
+
       if (error) {
-        document.getElementById('loginAlert').innerHTML =
-          `<div class="admin-alert error">${error.message}</div>`;
-      } else {
-        window.location.href = '/admin/dashboard.html';
+        showAlert(Auth.translateError(error.message));
+        return;
       }
+      window.location.href = '/admin/dashboard.html';
+    });
+
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('forgotBtn');
+      btn.disabled = true;
+      btn.textContent = 'جاري الإرسال...';
+      alertBox.innerHTML = '';
+
+      const { error } = await Auth.sendPasswordReset(
+        document.getElementById('forgotEmail').value
+      );
+
+      btn.disabled = false;
+      btn.textContent = 'إرسال رابط التغيير';
+
+      if (error) {
+        showAlert(Auth.translateError(error.message));
+        return;
+      }
+
+      showAlert('تم إرسال رابط تغيير كلمة المرور إلى بريدك — راجعي صندوق الوارد والرسائل غير المرغوبة', 'success');
     });
   </script>
 </body>

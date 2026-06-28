@@ -249,6 +249,22 @@
   margin-top: 4px;
 }
 
+.admin-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.admin-link-btn:hover {
+  color: var(--color-gold-dark);
+}
+
 @media (max-width: 768px) {
   .admin-layout {
     grid-template-columns: 1fr;

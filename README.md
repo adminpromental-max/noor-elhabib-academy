@@ -14,20 +14,14 @@
 ## إعداد Supabase (مرة واحدة)
 
 1. أنشئي مشروع على [supabase.com](https://supabase.com)
-2. من **SQL Editor** نفّذي:
-   - `supabase/schema.sql`
-   - `supabase/seed.sql` (مقالات مرجعية)
-3. من **Storage** أنشئي bucket باسم `article-images` (Public)
-4. من **Authentication** أنشئي مستخدم (Email) للوحة التحكم
-5. من **Settings → API** انسخي:
-   - Project URL
-   - anon public key
-6. ضعيهم في `js/config.js`:
-
-```js
-supabaseUrl: 'https://xxxxx.supabase.co',
-supabaseAnonKey: 'eyJhbG...',
-```
+2. نفّذي `supabase/schema.sql` ثم `supabase/seed.sql`
+3. أنشئي bucket `article-images` (Public) ثم نفّذي `supabase/storage.sql`
+4. من **Authentication → Providers** تأكدي أن **Email** مفعّل
+5. من **Authentication → URL Configuration** أضيفي:
+   - **Site URL:** `https://noor-elhabib-academy.vercel.app`
+   - **Redirect URLs:** `https://noor-elhabib-academy.vercel.app/admin/reset-password.html`
+6. أنشئي مستخدم من **Authentication → Users** مع ✅ **Auto Confirm User**
+7. ضعي المفاتيح في `js/config.js` واعملي push
 
 ## لوحة التحكم
 
