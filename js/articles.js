@@ -19,7 +19,7 @@ async function loadArticles() {
     <article class="article-card" itemscope itemtype="https://schema.org/Article">
       <div class="article-card-image">
         <a href="/articles/${article.slug}">
-          <img src="${article.cover_image || '/assets/services/hifz.jpg'}" alt="${article.title}" loading="lazy" width="400" height="200">
+          <img src="${article.cover_image || '/assets/services/hifz.webp'}" alt="${article.title}" loading="lazy" width="400" height="200">
         </a>
       </div>
       <div class="article-card-body">
