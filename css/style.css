@@ -19,7 +19,7 @@
   --color-shadow-gold: rgba(201, 162, 39, 0.25);
 
   --font-body: 'Cairo', sans-serif;
-  --font-heading: 'Reem Kufi', sans-serif;
+  --font-heading: 'Tajawal', sans-serif;
   --font-quran: 'Amiri', serif;
 
   --radius-sm: 8px;
@@ -101,7 +101,7 @@ body {
   color: var(--color-primary);
   font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .nav-logo img {
@@ -280,8 +280,10 @@ body {
 .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 800;
   line-height: 1.2;
   margin-bottom: 20px;
+  letter-spacing: -0.02em;
 }
 
 .title-line {
@@ -422,8 +424,10 @@ body {
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
   color: var(--color-primary);
   margin-bottom: 16px;
+  letter-spacing: -0.01em;
 }
 
 .section-desc {
@@ -458,6 +462,7 @@ body {
 .about-card h3 {
   font-family: var(--font-heading);
   font-size: 1.3rem;
+  font-weight: 800;
   color: var(--color-primary);
   margin-bottom: 12px;
 }
@@ -641,6 +646,7 @@ body {
 .service-card-body h3 {
   font-family: var(--font-heading);
   font-size: 1.15rem;
+  font-weight: 800;
   color: var(--color-primary);
   margin-bottom: 12px;
   line-height: 1.4;
