@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://noor-elhabib-academy.vercel.app/sitemap.xml

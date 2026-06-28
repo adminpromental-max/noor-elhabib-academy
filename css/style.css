@@ -560,15 +560,54 @@ body {
 }
 
 .service-card {
-  background: var(--color-cream);
+  background: var(--color-white);
   border-radius: var(--radius-lg);
-  padding: 32px 24px;
   display: flex;
   flex-direction: column;
   transition: transform var(--transition), box-shadow var(--transition);
   border: 1px solid rgba(26, 92, 71, 0.08);
   position: relative;
   overflow: hidden;
+  padding: 0;
+}
+
+.service-card-image {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.service-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-image img {
+  transform: scale(1.08);
+}
+
+.service-icon-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.service-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .service-card::before {
@@ -596,10 +635,10 @@ body {
 .service-icon {
   font-size: 2.5rem;
   margin-bottom: 16px;
-  display: block;
+  display: none;
 }
 
-.service-card h3 {
+.service-card-body h3 {
   font-family: var(--font-heading);
   font-size: 1.15rem;
   color: var(--color-primary);
@@ -607,7 +646,7 @@ body {
   line-height: 1.4;
 }
 
-.service-card p {
+.service-card-body p {
   color: var(--color-text-light);
   font-size: 0.9rem;
   flex-grow: 1;
@@ -1143,7 +1182,178 @@ body {
   opacity: 0.7;
 }
 
-/* ========== WHATSAPP FLOAT ========== */
+/* ========== TRIAL BANNER & CTA ========== */
+.btn-trial-glow {
+  animation: trial-glow 2.5s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes trial-glow {
+  0%, 100% { box-shadow: 0 4px 20px var(--color-shadow-gold); }
+  50% { box-shadow: 0 4px 30px var(--color-shadow-gold), 0 0 0 8px rgba(201, 162, 39, 0.15); }
+}
+
+.btn-trial {
+  background: linear-gradient(135deg, #fff, #f7f3eb);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+.btn-trial:hover {
+  background: white;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.trial-banner {
+  margin-top: 48px;
+}
+
+.trial-banner-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 28px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  overflow: hidden;
+}
+
+.trial-banner-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.4) 0%, transparent 70%);
+  top: -50%;
+  left: 20%;
+  animation: banner-glow-move 4s ease-in-out infinite;
+}
+
+@keyframes banner-glow-move {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 10px); }
+}
+
+.trial-banner-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  margin: 8px 0 4px;
+}
+
+.trial-banner-content p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.trial-banner-badge {
+  display: inline-block;
+  background: rgba(201, 162, 39, 0.3);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.trial-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-primary));
+  color: white;
+  padding: 12px 0;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.trial-sticky.visible {
+  transform: translateY(0);
+}
+
+.trial-sticky-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.trial-sticky p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ========== SOCIAL FLOAT ========== */
+.social-float {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-float-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.social-float-btn:hover {
+  transform: scale(1.1);
+}
+
+.social-float-btn.whatsapp {
+  background: #25d366;
+  animation: whatsapp-pulse 2s ease-in-out infinite;
+}
+
+.social-float-btn.facebook {
+  background: #1877f2;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.footer-social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.footer-social-link:hover {
+  background: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.footer-social-link.whatsapp:hover {
+  background: #25d366;
+}
+
+/* ========== WHATSAPP FLOAT (legacy) ========== */
 .whatsapp-float {
   position: fixed;
   bottom: 28px;
@@ -1272,6 +1482,20 @@ body {
 
   .hero-scroll {
     display: none;
+  }
+
+  .trial-banner-inner {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .trial-sticky-inner {
+    justify-content: center;
+    text-align: center;
+  }
+
+  body:has(.trial-sticky.visible) {
+    padding-bottom: 70px;
   }
 }
 

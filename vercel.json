@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/articles/:slug", "destination": "/article.html?slug=:slug" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ]
+}

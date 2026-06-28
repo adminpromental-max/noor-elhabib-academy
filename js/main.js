@@ -2,13 +2,14 @@
    أكاديمية نور الحبيب — Main JavaScript
    ============================================ */
 
-const WHATSAPP_NUMBER = '201024465792';
+const WHATSAPP_NUMBER = () => (window.Site?.whatsappNumber || '201038556800');
 
 const services = [
   {
     id: 'tajweed',
     theme: 'modal-theme-tajweed',
     icon: '📖',
+    image: '/assets/services/tajweed.jpg',
     title: 'برنامج التلاوة والتجويد',
     description: 'تعليم تلاوة القرآن الكريم بطريقة صحيحة مع إتقان أحكام التجويد.',
     intro: 'برنامج متخصص يأخذك من الأساسيات إلى إتقان التلاوة بضبط المخارج والصفات، مع معلم مجاز يصحح لك مباشرة في حصص أونلاين حية.',
@@ -31,6 +32,7 @@ const services = [
     id: 'hifz',
     theme: 'modal-theme-hifz',
     icon: '📘',
+    image: '/assets/services/hifz.jpg',
     title: 'برنامج تحفيظ القرآن الكريم',
     description: 'مساعدة الطلاب على حفظ القرآن مع مراجعة مستمرة لتثبيت الحفظ.',
     intro: 'خطة حفظ شخصية تناسب مستواك وعمرك، مع جدول مراجعة يومي وأسبوعي يضمن تثبيت ما حفظته وعدم نسيانه.',
@@ -53,6 +55,7 @@ const services = [
     id: 'islamic',
     theme: 'modal-theme-islamic',
     icon: '🕌',
+    image: '/assets/services/islamic.jpg',
     title: 'برنامج الدراسات الإسلامية',
     description: 'يشمل العقيدة، الفقه، السيرة النبوية، والتفسير.',
     intro: 'منهج شرعي متوازن يبني عقيدة الطالب ويفقهه في دينه، من خلال دراسة منظمة للعلوم الإسلامية بأسلوب مبسط وواضح.',
@@ -75,6 +78,7 @@ const services = [
     id: 'akhlaq',
     theme: 'modal-theme-akhlaq',
     icon: '🌱',
+    image: '/assets/services/akhlaq.jpg',
     title: 'برنامج تعليم الأخلاق الإسلامية',
     description: 'غرس القيم الإسلامية مثل الصدق، الأمانة، الاحترام والتسامح من خلال التطبيق العملي.',
     intro: 'برنامج تربوي يركز على بناء الشخصية المسلمة، وغرس القيم الأخلاقية في السلوك اليومي من خلال قصص ومواقف عملية.',
@@ -97,6 +101,7 @@ const services = [
     id: 'nooraniyah',
     theme: 'modal-theme-nooraniyah',
     icon: '🔤',
+    image: '/assets/services/nooraniyah.jpg',
     title: 'برنامج القاعدة النورانية',
     description: 'تأسيس الطلاب في قراءة القرآن بشكل صحيح من خلال تعلم الحروف ومخارجها وأحكامها بأسلوب تدريجي مبسط.',
     intro: 'البداية المثالية لمن يريد تعلم قراءة القرآن من الصفر، بمنهج القاعدة النورانية المعتمد عالمياً وبأسلوب ممتع ومتدرج.',
@@ -119,6 +124,7 @@ const services = [
     id: 'arabic',
     theme: 'modal-theme-arabic',
     icon: '📚',
+    image: '/assets/services/arabic.jpg',
     title: 'برنامج تعليم اللغة العربية',
     description: 'تنمية مهارات القراءة والكتابة والقواعد اللغوية بأساليب حديثة تناسب جميع المستويات.',
     intro: 'نقوّي لغتك العربية بشكل منهجي — من القواعد إلى الإنشاء — بأساليب حديثة تناسب كل الأعمار والمستويات.',
@@ -141,6 +147,7 @@ const services = [
     id: 'children',
     theme: 'modal-theme-children',
     icon: '🧒',
+    image: '/assets/services/children.jpg',
     title: 'برنامج تأسيس الأطفال',
     description: 'تعليم الأطفال الأساسيات الدينية واللغوية بأسلوب تفاعلي ممتع.',
     intro: 'برنامج مصمم خصيصاً للأطفال يجمع بين المتعة والتعلم، لبناء أساس ديني ولغوي قوي في مرحلة مبكرة.',
@@ -163,6 +170,7 @@ const services = [
     id: 'ijaza',
     theme: 'modal-theme-ijaza',
     icon: '🏅',
+    image: '/assets/services/ijaza.jpg',
     title: 'برنامج الإجازة في القرآن الكريم',
     description: 'الحصول على إجازة بالسند المتصل إلى النبي ﷺ بإشراف متخصصين.',
     intro: 'برنامج متقدم للحاصلين على مقدمة في الحفظ والتلاوة، يسعى للحصول على إجازة بالسند المتصل بإشراف شيوخ مجازين.',
@@ -184,7 +192,7 @@ const services = [
 ];
 
 function buildWhatsAppLink(message) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER()}?text=${encodeURIComponent(message)}`;
 }
 
 function renderChecklist(items) {
@@ -257,16 +265,21 @@ function renderServices() {
 
     return `
       <article class="service-card">
-        <span class="service-icon">${service.icon}</span>
-        <h3>${service.title}</h3>
-        <p>${service.description}</p>
-        <div class="service-actions">
-          <a href="${buildWhatsAppLink(bookMsg)}" class="btn btn-sm btn-whatsapp" target="_blank" rel="noopener">
-            احجز الآن
-          </a>
-          <button type="button" class="btn btn-sm btn-more" data-service-id="${service.id}">
-            اعرف المزيد
-          </button>
+        <div class="service-card-image">
+          <img src="${service.image}" alt="${service.title}" loading="lazy" width="400" height="220">
+          <span class="service-icon-badge">${service.icon}</span>
+        </div>
+        <div class="service-card-body">
+          <h3>${service.title}</h3>
+          <p>${service.description}</p>
+          <div class="service-actions">
+            <a href="${buildWhatsAppLink(bookMsg)}" class="btn btn-sm btn-whatsapp" target="_blank" rel="noopener">
+              احجز الآن
+            </a>
+            <button type="button" class="btn btn-sm btn-more" data-service-id="${service.id}">
+              اعرف المزيد
+            </button>
+          </div>
         </div>
       </article>
     `;
@@ -464,4 +477,23 @@ document.addEventListener('DOMContentLoaded', () => {
   initServiceModal();
   initNavigation();
   initGSAP();
+  Site.updateWhatsAppLinks();
+  Site.injectTrialBanners();
+  Site.injectSocialFloat();
+  initTrialSticky();
 });
+
+function initTrialSticky() {
+  const bar = document.createElement('div');
+  bar.className = 'trial-sticky';
+  bar.innerHTML = `
+    <div class="trial-sticky-inner container">
+      <p>🎁 <strong>حصة تجريبية مجانية</strong> — جرّب مع معلم مجاز</p>
+      <a href="${Site.trialLink()}" class="btn btn-trial btn-sm" data-trial target="_blank" rel="noopener">احجز الآن</a>
+    </div>
+  `;
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    bar.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+}
