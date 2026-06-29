@@ -21,10 +21,20 @@ const SupabaseClient = {
   },
 
   normalizeArticles(data) {
-    return (data || []).map((a) => ({
-      ...a,
-      category: a.category || 'general',
-    }));
+    const fallbackBySlug = Object.fromEntries(
+      (typeof FALLBACK_ARTICLES !== 'undefined' ? FALLBACK_ARTICLES : []).map((a) => [a.slug, a])
+    );
+
+    return (data || []).map((a) => {
+      const fallback = fallbackBySlug[a.slug];
+      const cover = getArticleCover({ ...a, category: a.category || fallback?.category });
+
+      return {
+        ...a,
+        category: a.category || fallback?.category || 'general',
+        cover_image: cover,
+      };
+    });
   },
 
   async getPublishedArticles() {
@@ -64,7 +74,9 @@ const SupabaseClient = {
       .single();
 
     if (error) return FALLBACK_ARTICLES.find((a) => a.slug === slug) || null;
-    return data ? { ...data, category: data.category || 'general' } : null;
+    return data
+      ? { ...data, category: data.category || 'general', cover_image: getArticleCover(data) }
+      : null;
   },
 
   groupByCategory(articles) {

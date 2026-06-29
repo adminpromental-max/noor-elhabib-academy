@@ -19,8 +19,20 @@ const CATEGORY_DEFAULT_IMAGES = {
   general: '/assets/services/akhlaq.webp',
 };
 
+function normalizeCoverPath(url) {
+  if (!url?.trim()) return '';
+  return url.trim().replace(/(\/assets\/services\/[^./?#]+)\.jpe?g(?=($|[?#]))/i, '$1.webp');
+}
+
 function getArticleCover(article) {
-  if (article?.cover_image?.trim()) return article.cover_image.trim();
+  const normalized = normalizeCoverPath(article?.cover_image);
+  if (normalized) return normalized;
+
+  const fallback = typeof FALLBACK_ARTICLES !== 'undefined'
+    ? FALLBACK_ARTICLES.find((a) => a.slug === article?.slug)
+    : null;
+  if (fallback?.cover_image) return normalizeCoverPath(fallback.cover_image);
+
   return CATEGORY_DEFAULT_IMAGES[article?.category || 'general'] || '/assets/services/hifz.webp';
 }
 
