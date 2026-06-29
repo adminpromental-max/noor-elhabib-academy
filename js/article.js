@@ -73,7 +73,7 @@ async function loadArticle() {
   page.innerHTML = `
     <div class="container">
       <nav class="breadcrumb" aria-label="مسار التنقل">
-        <a href="/">الرئيسية</a> / <a href="/articles/">المقالات</a> / <span>${article.title}</span>
+        <a href="/">الرئيسية</a> / <a href="/articles/">معلومات دينية</a> / <span>${article.title}</span>
       </nav>
       <header class="article-single-header">
         <h1>${article.title}</h1>

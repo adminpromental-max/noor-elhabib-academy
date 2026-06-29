@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="مقالات أكاديمية نور الحبيب — نصائح تحفيظ القرآن، التجويد، وتعليم الأطفال. محتوى تعليمي موثوق لأهل القرآن.">
-  <meta name="keywords" content="تحفيظ القرآن, التجويد, تعليم القرآن, أكاديمية قرآن, نور الحبيب">
+  <meta name="description" content="معلومات دينية من أكاديمية نور الحبيب — القرآن الكريم، السنة النبوية، أحكام التجويد، ومعرفة إسلامية عامة.">
+  <meta name="keywords" content="معلومات دينية, القرآن الكريم, السنة النبوية, التجويد, أكاديمية نور الحبيب">
   <link rel="canonical" href="https://noor-elhabib-academy.vercel.app/articles/">
-  <meta property="og:title" content="مقالات أكاديمية نور الحبيب">
-  <meta property="og:description" content="مقالات تعليمية عن تحفيظ القرآن والتجويد والعلوم الشرعية">
+  <meta property="og:title" content="معلومات دينية | أكاديمية نور الحبيب">
+  <meta property="og:description" content="مقالات دينية عن القرآن والسنة والتجويد والعلوم الإسلامية">
   <meta property="og:type" content="website">
-  <title>المقالات | أكاديمية نور الحبيب</title>
+  <title>معلومات دينية | أكاديمية نور الحبيب</title>
   <link rel="icon" href="/assets/logo.jpg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
@@ -28,7 +28,7 @@
       <ul class="nav-menu" id="navMenu">
         <li><a href="/" class="nav-link">الرئيسية</a></li>
         <li><a href="/#services" class="nav-link">برامجنا</a></li>
-        <li><a href="/articles/" class="nav-link">المقالات</a></li>
+        <li><a href="/articles/" class="nav-link">معلومات دينية</a></li>
         <li><a href="/#contact" class="nav-link nav-cta">تواصل معنا</a></li>
       </ul>
     </nav>
@@ -37,16 +37,20 @@
   <main>
     <div class="page-header">
       <div class="container">
-        <span class="section-tag">مدونة الأكاديمية</span>
-        <h1>مقالات تعليمية لأهل القرآن</h1>
-        <p>محتوى موثوق عن تحفيظ القرآن، التجويد، وتربية الأبناء — مرجعك لإضافة مقالات جديدة بنفس معايير SEO</p>
+        <span class="section-tag">مكتبة الأكاديمية</span>
+        <h1>معلومات دينية</h1>
+        <p>محتوى موثوق مقسّم حسب الأقسام: القرآن الكريم، السنة النبوية، أحكام التجويد، ومعلومات عامة</p>
+        <nav class="category-nav" aria-label="أقسام المعلومات الدينية">
+          <a href="#cat-quran" class="category-nav-link">📖 القرآن الكريم</a>
+          <a href="#cat-sunnah" class="category-nav-link">☪️ السنة النبوية</a>
+          <a href="#cat-tajweed" class="category-nav-link">🎵 أحكام التجويد</a>
+          <a href="#cat-general" class="category-nav-link">📚 معلومات عامة</a>
+        </nav>
       </div>
     </div>
 
-    <div class="container">
-      <div class="articles-grid" id="articlesGrid">
-        <div class="loading-state">جاري تحميل المقالات...</div>
-      </div>
+    <div class="container" id="articlesContainer">
+      <div class="loading-state">جاري تحميل المعلومات الدينية...</div>
     </div>
   </main>
 
@@ -63,6 +67,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/js/config.js"></script>
   <script src="/js/site.js"></script>
+  <script src="/js/article-categories.js"></script>
+  <script src="/js/articles-data.js"></script>
   <script src="/js/supabase-client.js"></script>
   <script src="/js/articles.js"></script>
 </body>

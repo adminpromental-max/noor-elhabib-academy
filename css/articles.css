@@ -1,4 +1,4 @@
-/* صفحات المقالات */
+/* صفحات المعلومات الدينية */
 .page-header {
   padding: calc(var(--header-height) + 48px) 0 48px;
   background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
@@ -16,6 +16,83 @@
   color: var(--color-text-light);
   max-width: 600px;
   margin-inline: auto;
+}
+
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.category-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid rgba(26, 92, 71, 0.12);
+  border-radius: var(--radius-full);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.category-nav-link:hover {
+  background: var(--color-cream);
+  transform: translateY(-2px);
+}
+
+.article-category-section {
+  margin-bottom: 56px;
+}
+
+.article-category-section:last-child {
+  margin-bottom: 80px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-cream-dark);
+}
+
+.category-icon {
+  font-size: 1.6rem;
+}
+
+.category-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.category-count {
+  margin-right: auto;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  background: var(--color-cream);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.article-card-category {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gold-dark);
+  background: rgba(201, 162, 39, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
 }
 
 .articles-grid {

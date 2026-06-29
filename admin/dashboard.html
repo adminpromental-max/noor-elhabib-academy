@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>لوحة التحكم | المقالات</title>
+  <title>لوحة التحكم | معلومات دينية</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin.css">
@@ -12,9 +12,9 @@
 <body class="admin-body">
   <header class="admin-header">
     <div class="container admin-header-inner">
-      <h1>📚 إدارة المقالات — نور الحبيب</h1>
+      <h1>📚 إدارة المعلومات الدينية — نور الحبيب</h1>
       <div>
-        <a href="/articles/" class="btn btn-outline btn-sm" style="color:white;border-color:rgba(255,255,255,0.5);margin-left:8px" target="_blank">عرض المقالات</a>
+        <a href="/articles/" class="btn btn-outline btn-sm" style="color:white;border-color:rgba(255,255,255,0.5);margin-left:8px" target="_blank">عرض الصفحة</a>
         <button id="logoutBtn" class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white">خروج</button>
       </div>
     </div>
@@ -22,7 +22,7 @@
 
   <div class="admin-layout">
     <aside class="admin-sidebar">
-      <h2>📋 دليل SEO للمقالات</h2>
+      <h2>📋 دليل SEO للمقالات الدينية</h2>
       <ul class="seo-guide">
         <li>العنوان: 5–10 كلمات</li>
         <li>المقال: 300+ كلمة</li>
@@ -54,6 +54,17 @@
           <input type="hidden" id="articleId">
 
           <div class="admin-form-group">
+            <label for="category">القسم</label>
+            <select id="category" required>
+              <option value="quran">القرآن الكريم</option>
+              <option value="sunnah">السنة النبوية</option>
+              <option value="tajweed">أحكام التجويد</option>
+              <option value="general">معلومات عامة</option>
+            </select>
+            <p class="admin-hint">اختري القسم المناسب للمقال</p>
+          </div>
+
+          <div class="admin-form-group">
             <label for="title">عنوان المقال</label>
             <input type="text" id="title" required maxlength="120">
             <p class="admin-hint" id="titleHint">يجب أن يكون عدد كلمات العنوان بين 5 و 10 كلمات للحصول على أفضل نتيجة SEO</p>
@@ -67,7 +78,7 @@
           </div>
 
           <div class="admin-form-group">
-            <label for="excerpt">المقتطف (يظهر في قائمة المقالات)</label>
+            <label for="excerpt">المقتطف (يظهر في قائمة المعلومات الدينية)</label>
             <textarea id="excerpt" rows="2" required maxlength="200"></textarea>
             <p class="admin-hint">جملة أو جملتان تلخصان المقال — 20–30 كلمة</p>
           </div>
@@ -116,6 +127,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/js/config.js"></script>
   <script src="/js/site.js"></script>
+  <script src="/js/article-categories.js"></script>
   <script src="/js/auth.js"></script>
   <script src="/js/admin.js"></script>
 </body>

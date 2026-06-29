@@ -1,4 +1,4 @@
--- جدول المقالات — نفّذي هذا في Supabase SQL Editor
+-- جدول المعلومات الدينية — نفّذي هذا في Supabase SQL Editor
 
 create table if not exists articles (
   id uuid primary key default gen_random_uuid(),
@@ -9,6 +9,7 @@ create table if not exists articles (
   meta_description text not null,
   keywords text not null default '',
   cover_image text not null default '',
+  category text not null default 'general',
   published boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -16,6 +17,7 @@ create table if not exists articles (
 
 create index if not exists articles_slug_idx on articles (slug);
 create index if not exists articles_published_idx on articles (published, created_at desc);
+create index if not exists articles_category_idx on articles (category);
 
 alter table articles enable row level security;
 

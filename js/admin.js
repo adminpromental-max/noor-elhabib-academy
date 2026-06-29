@@ -1,5 +1,5 @@
 /**
- * لوحة تحكم المقالات
+ * لوحة تحكم المعلومات الدينية
  */
 const Admin = {
   client: null,
@@ -141,7 +141,7 @@ const Admin = {
       <div class="admin-article-item">
         <div>
           <h3>${a.title}</h3>
-          <p class="meta">${a.slug} · ${new Date(a.created_at).toLocaleDateString('ar-EG')}</p>
+          <p class="meta">${getCategoryTitle(a.category || 'general')} · ${a.slug} · ${new Date(a.created_at).toLocaleDateString('ar-EG')}</p>
         </div>
         <span class="admin-badge ${a.published ? 'published' : 'draft'}">${a.published ? 'منشور' : 'مسودة'}</span>
         <div class="admin-actions">
@@ -165,6 +165,7 @@ const Admin = {
     if (!article) return;
 
     document.getElementById('articleId').value = article.id;
+    document.getElementById('category').value = article.category || 'general';
     document.getElementById('title').value = article.title;
     document.getElementById('slug').value = article.slug;
     document.getElementById('excerpt').value = article.excerpt;
@@ -191,6 +192,7 @@ const Admin = {
   async saveArticle() {
     const id = document.getElementById('articleId').value;
     const payload = {
+      category: document.getElementById('category').value,
       title: document.getElementById('title').value.trim(),
       slug: document.getElementById('slug').value.trim(),
       excerpt: document.getElementById('excerpt').value.trim(),

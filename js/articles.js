@@ -1,3 +1,27 @@
+function renderArticleCard(article, showCategory = false) {
+  const cat = showCategory
+    ? `<span class="article-card-category">${getCategoryTitle(article.category)}</span>`
+    : '';
+  return `
+    <article class="article-card" itemscope itemtype="https://schema.org/Article">
+      <div class="article-card-image">
+        <a href="/articles/${article.slug}">
+          <img src="${article.cover_image || '/assets/services/hifz.webp'}" alt="${article.title}" loading="lazy" width="400" height="200">
+        </a>
+      </div>
+      <div class="article-card-body">
+        ${cat}
+        <time class="article-card-meta" datetime="${article.created_at}" itemprop="datePublished">${formatDate(article.created_at)}</time>
+        <h2 itemprop="headline">
+          <a href="/articles/${article.slug}">${article.title}</a>
+        </h2>
+        <p itemprop="description">${article.excerpt}</p>
+        <a href="/articles/${article.slug}" class="article-card-link">اقرأ المزيد ←</a>
+      </div>
+    </article>
+  `;
+}
+
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('ar-EG', {
     year: 'numeric',
@@ -7,36 +31,36 @@ function formatDate(dateStr) {
 }
 
 async function loadArticles() {
-  const grid = document.getElementById('articlesGrid');
+  const container = document.getElementById('articlesContainer');
   const articles = await SupabaseClient.getPublishedArticles();
 
   if (!articles.length) {
-    grid.innerHTML = '<div class="loading-state">لا توجد مقالات حالياً.</div>';
+    container.innerHTML = '<div class="loading-state">لا توجد معلومات دينية حالياً.</div>';
     return;
   }
 
-  grid.innerHTML = articles.map((article) => `
-    <article class="article-card" itemscope itemtype="https://schema.org/Article">
-      <div class="article-card-image">
-        <a href="/articles/${article.slug}">
-          <img src="${article.cover_image || '/assets/services/hifz.webp'}" alt="${article.title}" loading="lazy" width="400" height="200">
-        </a>
-      </div>
-      <div class="article-card-body">
-        <time class="article-card-meta" datetime="${article.created_at}" itemprop="datePublished">${formatDate(article.created_at)}</time>
-        <h2 itemprop="headline">
-          <a href="/articles/${article.slug}">${article.title}</a>
-        </h2>
-        <p itemprop="description">${article.excerpt}</p>
-        <a href="/articles/${article.slug}" class="article-card-link">اقرأ المزيد ←</a>
-      </div>
-    </article>
-  `).join('');
+  const grouped = SupabaseClient.groupByCategory(articles);
+
+  container.innerHTML = grouped.map((section) => {
+    if (!section.articles.length) return '';
+    return `
+      <section class="article-category-section" id="cat-${section.id}">
+        <div class="category-header">
+          <span class="category-icon">${section.icon}</span>
+          <h2 class="category-title">${section.title}</h2>
+          <span class="category-count">${section.articles.length} مقالات</span>
+        </div>
+        <div class="articles-grid">
+          ${section.articles.map((a) => renderArticleCard(a)).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
 
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'مدونة أكاديمية نور الحبيب',
+    name: 'معلومات دينية — أكاديمية نور الحبيب',
     url: `${Site.config.siteUrl}/articles/`,
     blogPost: articles.map((a) => ({
       '@type': 'BlogPosting',

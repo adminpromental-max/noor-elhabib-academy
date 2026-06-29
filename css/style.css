@@ -1328,6 +1328,102 @@ body {
   }
 }
 
+/* أحدث المعلومات الدينية — الرئيسية */
+.home-articles {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
+}
+
+.home-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.home-article-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 24px var(--color-shadow);
+  border: 1px solid rgba(26, 92, 71, 0.06);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.home-article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px var(--color-shadow);
+}
+
+.home-article-image {
+  display: block;
+  height: 200px;
+  overflow: hidden;
+}
+
+.home-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.home-article-card:hover .home-article-image img {
+  transform: scale(1.05);
+}
+
+.home-article-body {
+  padding: 20px 24px 24px;
+}
+
+.home-article-cat {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gold-dark);
+  margin-bottom: 8px;
+}
+
+.home-article-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.home-article-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-article-body h3 a:hover {
+  color: var(--color-gold-dark);
+}
+
+.home-article-link {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.home-article-link:hover {
+  color: var(--color-gold-dark);
+}
+
+.home-articles-more {
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .home-articles-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+}
+
 /* ========== FOOTER ========== */
 .footer {
   background: var(--color-primary-dark);
