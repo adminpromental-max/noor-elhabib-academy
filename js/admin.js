@@ -218,6 +218,16 @@ const Admin = {
     }
 
     if (result.error) {
+      const missingCategory = /category/i.test(result.error.message || '');
+      if (missingCategory && payload.category) {
+        delete payload.category;
+        result = id
+          ? await this.client.from('articles').update(payload).eq('id', id)
+          : await this.client.from('articles').insert(payload);
+      }
+    }
+
+    if (result.error) {
       this.showAlert(result.error.message, 'error');
       return;
     }

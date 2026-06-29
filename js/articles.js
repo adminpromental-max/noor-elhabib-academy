@@ -6,7 +6,7 @@ function renderArticleCard(article, showCategory = false) {
     <article class="article-card" itemscope itemtype="https://schema.org/Article">
       <div class="article-card-image">
         <a href="/articles/${article.slug}">
-          <img src="${article.cover_image || '/assets/services/hifz.webp'}" alt="${article.title}" loading="lazy" width="400" height="200">
+          <img src="${getArticleCover(article)}" alt="${article.title}" loading="lazy" width="400" height="200">
         </a>
       </div>
       <div class="article-card-body">

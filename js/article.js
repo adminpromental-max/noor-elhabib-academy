@@ -82,9 +82,9 @@ async function loadArticle() {
           · أكاديمية نور الحبيب
         </p>
       </header>
-      ${article.cover_image ? `
+      ${getArticleCover(article) ? `
         <figure class="article-cover">
-          <img src="${article.cover_image}" alt="${article.title}" width="900" height="450">
+          <img src="${getArticleCover(article)}" alt="${article.title}" width="900" height="450">
         </figure>
       ` : ''}
       <article class="article-content">${article.content}</article>

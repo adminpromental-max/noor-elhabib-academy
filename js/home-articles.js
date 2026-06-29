@@ -10,7 +10,7 @@ async function loadHomeArticles() {
   grid.innerHTML = articles.map((article) => `
     <article class="home-article-card">
       <a href="/articles/${article.slug}" class="home-article-image">
-        <img src="${article.cover_image || '/assets/services/hifz.webp'}" alt="${article.title}" loading="lazy" width="360" height="200">
+        <img src="${getArticleCover(article)}" alt="${article.title}" loading="lazy" width="360" height="200">
       </a>
       <div class="home-article-body">
         <span class="home-article-cat">${getCategoryTitle(article.category)}</span>
