@@ -454,6 +454,15 @@ function initGSAP() {
     ease: 'back.out(1.4)',
   });
 
+  gsap.from('.testimonial-card', {
+    scrollTrigger: { trigger: '.testimonials', start: 'top 85%' },
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    stagger: 0.08,
+    ease: 'power2.out',
+  });
+
   document.querySelectorAll('.stat-number').forEach((el) => {
     const target = parseInt(el.dataset.count, 10);
     ScrollTrigger.create({
@@ -472,17 +481,6 @@ function initGSAP() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderServices();
-  initServiceModal();
-  initNavigation();
-  initGSAP();
-  Site.updateWhatsAppLinks();
-  Site.injectTrialBanners();
-  Site.injectSocialFloat();
-  initTrialSticky();
-});
-
 function initTrialSticky() {
   const bar = document.createElement('div');
   bar.className = 'trial-sticky';
@@ -497,3 +495,191 @@ function initTrialSticky() {
     bar.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
 }
+
+const testimonials = [
+  {
+    name: 'أم محمد',
+    initial: 'م',
+    service: 'برنامج تحفيظ القرآن',
+    rating: 5,
+    text: 'ابني بدأ يحفظ من الصفر والحمد لله حفظ ثلاثة أجزاء خلال سنة. المعلمة صبورة جداً والمتابعة الأسبوعية خلتني أعرف تقدمه بالظبط.',
+  },
+  {
+    name: 'أبو عبدالله',
+    initial: 'ع',
+    service: 'برنامج التلاوة والتجويد',
+    rating: 5,
+    text: 'كنت بقرأ بأخطاء كتير ومكنتش واعي بيها. بعد البرنامج تلاوتي اتظبطت بشكل ملحوظ والمعلم بيصححلي live في كل حصة.',
+  },
+  {
+    name: 'أم فاطمة',
+    initial: 'ف',
+    service: 'تأسيس الأطفال',
+    rating: 5,
+    text: 'بنتي عمرها 6 سنين وكانت مش مركزة خالص. المعلمة عرفت تتعامل معاها بأسلوب لعب وتشجيع، دلوقتي بتحب الحصة ومستنية معادها.',
+  },
+  {
+    name: 'الشيخ أحمد',
+    initial: 'أ',
+    service: 'برنامج الإجازة',
+    rating: 5,
+    text: 'الحمد لله حصلت على إجازة بالسند المتصل بفضل متابعة الشيخ الدقيقة. البرنامج منظم جداً ومستوى علمي عالي.',
+  },
+  {
+    name: 'أم يوسف',
+    initial: 'ي',
+    service: 'القاعدة النورانية',
+    rating: 5,
+    text: 'ابني مكنش يعرف يقرأ حرف صح. خلال شهرين بقى يقرأ من المصحف بثقة. المنهج مبسط ومناسب للأطفال فعلاً.',
+  },
+  {
+    name: 'أم ريم',
+    initial: 'ر',
+    service: 'الدراسات الإسلامية',
+    rating: 5,
+    text: 'بنتي المراهقة بتاخد دروس عقيدة وسيرة وفرق كبير في سلوكها وأسئلتها. المعلم يشرح بأسلوب يناسب سنها.',
+  },
+  {
+    name: 'أبو سلمى',
+    initial: 'س',
+    service: 'تحفيظ القرآن — كبار',
+    rating: 5,
+    text: 'أنا رجل كبير وكنت متردد أبدأ حفظ. الأكاديمية راعت ظروفي وعملتلي خطة حفظ مريحة. حفظت جزء عمّ والمراجعة منتظمة.',
+  },
+  {
+    name: 'أم نور',
+    initial: 'ن',
+    service: 'تعليم اللغة العربية',
+    rating: 4,
+    text: 'تحسّن مستوى بنتي في القراءة والكتابة بشكل واضح. الدروس أونلاين سهلة والمعلمة بتتابع الواجبات باهتمام.',
+  },
+  {
+    name: 'أم عمر',
+    initial: 'ع',
+    service: 'الأخلاق الإسلامية',
+    rating: 5,
+    text: 'البرنامج غيّر سلوك أولادي للأفضل — بقوا أهدى وأكثر احتراماً. القصص والتطبيق العملي فعّالين جداً مع الأطفال.',
+  },
+  {
+    name: 'أم لينا',
+    initial: 'ل',
+    service: 'تحفيظ + تجويد',
+    rating: 5,
+    text: 'بنتي بتحفظ وبتلتزم بأحكام التجويد من أول يوم. المعلمات ممتازات وبيعرفوا يتعاملوا مع الأطفال بصبر وحب.',
+  },
+];
+
+function renderStars(rating) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+
+function renderTestimonials() {
+  const track = document.getElementById('testimonialsTrack');
+  const dots = document.getElementById('testimonialsDots');
+  if (!track || !dots) return;
+
+  track.innerHTML = testimonials.map((t) => `
+    <article class="testimonial-card">
+      <div class="testimonial-inner">
+        <div class="testimonial-stars" aria-label="تقييم ${t.rating} من 5">${renderStars(t.rating)}</div>
+        <p class="testimonial-text">${t.text}</p>
+        <div class="testimonial-meta">
+          <div class="testimonial-avatar" aria-hidden="true">${t.initial}</div>
+          <div>
+            <div class="testimonial-name">${t.name}</div>
+            <div class="testimonial-service">${t.service}</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderTestimonialDots(activePage, pageCount) {
+  const dots = document.getElementById('testimonialsDots');
+  if (!dots) return;
+  dots.innerHTML = Array.from({ length: pageCount }, (_, i) => `
+    <button type="button" class="testimonial-dot${i === activePage ? ' active' : ''}" data-index="${i}" aria-label="صفحة ${i + 1}"></button>
+  `).join('');
+}
+
+function initTestimonialsSlider() {
+  const track = document.getElementById('testimonialsTrack');
+  const dots = document.getElementById('testimonialsDots');
+  const prev = document.getElementById('testimonialPrev');
+  const next = document.getElementById('testimonialNext');
+  if (!track || !dots) return;
+
+  let current = 0;
+  let autoplayTimer;
+  let slidesPerView = 1;
+
+  function getSlidesPerView() {
+    if (window.innerWidth >= 1100) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
+  }
+
+  function maxIndex() {
+    return Math.max(0, testimonials.length - slidesPerView);
+  }
+
+  function goTo(index) {
+    slidesPerView = getSlidesPerView();
+    const pages = maxIndex() + 1;
+    current = Math.max(0, Math.min(index, maxIndex()));
+    const offset = (current * 100) / slidesPerView;
+    track.style.transform = `translateX(-${offset}%)`;
+    renderTestimonialDots(current, pages);
+  }
+
+  function nextSlide() {
+    goTo(current >= maxIndex() ? 0 : current + 1);
+  }
+
+  function prevSlide() {
+    goTo(current <= 0 ? maxIndex() : current - 1);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, 5000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  prev?.addEventListener('click', () => { prevSlide(); startAutoplay(); });
+  next?.addEventListener('click', () => { nextSlide(); startAutoplay(); });
+
+  dots.addEventListener('click', (e) => {
+    const dot = e.target.closest('.testimonial-dot');
+    if (dot) {
+      goTo(parseInt(dot.dataset.index, 10));
+      startAutoplay();
+    }
+  });
+
+  window.addEventListener('resize', () => goTo(Math.min(current, maxIndex())));
+
+  const section = document.getElementById('testimonials');
+  section?.addEventListener('mouseenter', stopAutoplay);
+  section?.addEventListener('mouseleave', startAutoplay);
+
+  goTo(0);
+  startAutoplay();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderServices();
+  renderTestimonials();
+  initTestimonialsSlider();
+  initServiceModal();
+  initNavigation();
+  initGSAP();
+  Site.updateWhatsAppLinks();
+  Site.injectTrialBanners();
+  Site.injectSocialFloat();
+  initTrialSticky();
+});
